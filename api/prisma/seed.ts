@@ -1,8 +1,29 @@
 import { PrismaClient } from '@prisma/client';
-
+import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
+  // 0. Create the two test users (passwords are hashed, never plain text)
+  await prisma.user.upsert({
+    where: { email: 'librarian@library.com' },
+    update: {},
+    create: {
+      email: 'librarian@library.com',
+      name: 'Head Librarian',
+      password: await bcrypt.hash('Librarian123!', 10),
+      role: 'LIBRARIAN',
+    },
+  });
+  await prisma.user.upsert({
+    where: { email: 'patron@library.com' },
+    update: {},
+    create: {
+      email: 'patron@library.com',
+      name: 'Regular Patron',
+      password: await bcrypt.hash('Patron123!', 10),
+      role: 'PATRON',
+    },
+  });
   // 1. Create the genres first (books need a genre to belong to)
   const fiction = await prisma.genre.upsert({
     where: { slug: 'fiction' },

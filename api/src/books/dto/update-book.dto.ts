@@ -1,0 +1,29 @@
+import { IsInt, IsNotEmpty, IsOptional, IsString, Min } from 'class-validator';
+
+// same fields as create, but all optional (you only send what changes)
+export class UpdateBookDto {
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  title?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  author?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  isbn?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  totalCopies?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  genreId?: number;
+}
