@@ -13,3 +13,13 @@ It also keeps the data consistent. The foreign key means a book can't point to a
 - `isbn` is unique, so the same book can't be added twice.
 - `totalCopies` and `availableCopies` are separate so we can track how many are on the shelf versus how many the library owns.
 - `Role` is an enum (PATRON, LIBRARIAN) so a user can only ever have one of those two values.
+
+## Where things are
+
+- Schema: [api/prisma/schema.prisma](api/prisma/schema.prisma) - Role enum, User, Genre, Book
+- Seed script: [api/prisma/seed.ts](api/prisma/seed.ts) - 4 genres, 16 books
+- Prisma service: [api/src/prisma/prisma.service.ts](api/src/prisma/prisma.service.ts)
+- Env placeholder: [api/.env.example](api/.env.example)
+- Migrations: [api/prisma/migrations](api/prisma/migrations)
+
+To run the seed: cd api, copy .env.example to .env, fill in your database URL, then run npm run seed.
